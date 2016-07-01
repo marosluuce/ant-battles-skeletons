@@ -1,0 +1,2 @@
+defmodule Skeleton do
+end
