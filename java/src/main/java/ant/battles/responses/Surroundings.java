@@ -7,21 +7,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Surroundings {
 
-    private final Direction ne;
-    private Direction n;
+    private final Environment ne;
+    private Environment n;
 
     @JsonCreator
-    public Surroundings(@JsonProperty("ne") Direction ne,
-                        @JsonProperty("n") Direction n) {
+    public Surroundings(@JsonProperty("ne") Environment ne,
+                        @JsonProperty("n") Environment n) {
         this.ne = ne;
         this.n = n;
     }
 
-    public Direction northEast() {
+    public Environment northEast() {
         return ne;
     }
 
-    public Direction north() {
+    public Environment north() {
         return n;
     }
 

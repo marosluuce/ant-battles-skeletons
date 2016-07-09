@@ -38,4 +38,13 @@ public class Client {
             return Optional.empty();
         }
     }
+
+    public Optional<Ant> move(Ant ant, Direction north) {
+        try {
+            String raw = Unirest.get(url + "/" +ant.getId()+"/move/"+north.code()).asString().getBody();
+            return Optional.of(mapper.readValue(raw, Ant.class));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
 }
