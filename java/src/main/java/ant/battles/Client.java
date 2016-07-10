@@ -1,6 +1,7 @@
 package ant.battles;
 
 import ant.battles.responses.Ant;
+import ant.battles.responses.Leave;
 import ant.battles.responses.Nest;
 
 import java.util.Optional;
@@ -34,7 +35,7 @@ public class Client {
         return httpClient.get(url + "/" + ant.getId() + "/look", Ant.class);
     }
 
-    public Optional<String> leave(Nest nest) {
-        return httpClient.getString(this.url + "/" + nest.getId() + "/leave");
+    public Optional<Leave> leave(Nest nest) {
+        return httpClient.get(this.url + "/" + nest.getId() + "/leave", Leave.class);
     }
 }

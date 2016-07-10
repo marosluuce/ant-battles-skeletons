@@ -1,10 +1,12 @@
 package ant.battles;
 
 import ant.battles.responses.Ant;
+import ant.battles.responses.Leave;
 import ant.battles.responses.Location;
 import ant.battles.responses.Nest;
 import org.junit.Test;
 
+import javax.swing.text.AbstractDocument;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,10 +20,11 @@ public class ClientTest {
     }
 
     @Test
-    public void createsATeam() {
+    public void createsAndLeavesTeam() {
         Nest nest = client.join("Badgers").get();
         assertThat(nest.getTeam()).isEqualTo("Badgers");
-        client.leave(nest);
+        Leave leave = client.leave(nest).get();
+        assertThat(leave.nestId()).isEqualTo(nest.getId());
     }
 
     @Test
