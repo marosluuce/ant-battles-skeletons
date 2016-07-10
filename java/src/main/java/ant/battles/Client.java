@@ -47,4 +47,22 @@ public class Client {
             return Optional.empty();
         }
     }
+
+    public Optional<Ant> look(Ant ant) {
+        try {
+            String raw = Unirest.get(url + "/" +ant.getId()+"/look").asString().getBody();
+            return Optional.of(mapper.readValue(raw, Ant.class));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<String> leave(Nest nest) {
+        try {
+            String raw = Unirest.get(url + "/" +nest.getId()+"/leave").asString().getBody();
+            return Optional.of(raw);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
 }

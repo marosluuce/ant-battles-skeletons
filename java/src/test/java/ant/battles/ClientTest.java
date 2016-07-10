@@ -1,6 +1,7 @@
 package ant.battles;
 
 import ant.battles.responses.Ant;
+import ant.battles.responses.Location;
 import ant.battles.responses.Nest;
 import org.junit.Test;
 
@@ -19,7 +20,9 @@ public class ClientTest {
     @Test
     public void createsATeam() {
         Client client = new Client();
-        assertThat(client.join("Badgers").map(Nest::getTeam)).contains("Badgers");
+        Nest nest = client.join("Badgers").get();
+        assertThat(nest.getTeam()).isEqualTo("Badgers");
+        client.leave(nest);
     }
 
     @Test
@@ -28,6 +31,7 @@ public class ClientTest {
         Nest nest = client.join("Badgers").get();
 
         assertThat(client.spawnAntFor(nest).map(Ant::hasFood)).contains(false);
+        client.leave(nest);
     }
 
     @Test
@@ -39,7 +43,21 @@ public class ClientTest {
 
         Optional<Ant> moved = client.move(ant, Direction.NORTH);
 
-        System.out.println(moved.get().getLocation());
+        assertThat(moved.map(Ant::getLocation).get()).isEqualTo(new Location(0,1));
+        client.leave(nest);
+    }
 
+    @Test
+    public void lookAround() {
+        Client client = new Client();
+        Nest nest = client.join("Badgers").get();
+
+        Ant ant = client.spawnAntFor(nest).get();
+
+        Optional<Ant> moved = client.look(ant);
+
+        assertThat(moved.map(Ant::getLocation).get()).isEqualTo(new Location(0,0));
+
+        client.leave(nest);
     }
 }
