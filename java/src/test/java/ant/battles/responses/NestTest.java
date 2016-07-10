@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class NestTest {
 
     @Test
-    public void deserializesCorrectly() throws Exception {
+    public void deserializeCorrectly() throws Exception {
         String json = "{\"status\":\"ok\",\"message\":{\"type\":\"nest\",\"team\":\"Badgers\",\"location\":[0,0],\"id\":14674,\"food\":5,\"ants\":0}}]";
 
         ObjectMapper mapper = new ObjectMapper();

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("ant")
 public class AntMessage extends BaseMessage implements Surroundable {
 
-    public String type = "ant";
+    public final String type = "ant";
 
     @JsonProperty
     public long nest;

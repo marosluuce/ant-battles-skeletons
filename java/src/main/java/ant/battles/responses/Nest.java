@@ -12,7 +12,7 @@ public class Nest {
     }
 
     private final String status;
-    private JoiningMessage message;
+    private final JoiningMessage message;
 
     @JsonCreator
     public Nest(@JsonProperty("status") String status,
