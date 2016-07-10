@@ -10,16 +10,15 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ClientTest {
+    private final Client client = new Client("http://localhost:4000");
 
     @Test
     public void hitsTheRoot() {
-        Client client = new Client();
         assertThat(client.root()).contains("Welcome to Ant Battles!");
     }
 
     @Test
     public void createsATeam() {
-        Client client = new Client();
         Nest nest = client.join("Badgers").get();
         assertThat(nest.getTeam()).isEqualTo("Badgers");
         client.leave(nest);
@@ -27,7 +26,6 @@ public class ClientTest {
 
     @Test
     public void spawnsAfreshAnt() {
-        Client client = new Client();
         Nest nest = client.join("Badgers").get();
 
         assertThat(client.spawnAntFor(nest).map(Ant::hasFood)).contains(false);
@@ -36,7 +34,6 @@ public class ClientTest {
 
     @Test
     public void movesAnAnt() {
-        Client client = new Client();
         Nest nest = client.join("Badgers").get();
 
         Ant ant = client.spawnAntFor(nest).get();
@@ -49,7 +46,6 @@ public class ClientTest {
 
     @Test
     public void lookAround() {
-        Client client = new Client();
         Nest nest = client.join("Badgers").get();
 
         Ant ant = client.spawnAntFor(nest).get();
