@@ -1,4 +1,4 @@
-package ant.battles.responses;
+package ant.battles.responses.messages;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

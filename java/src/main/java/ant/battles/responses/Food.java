@@ -1,5 +1,6 @@
 package ant.battles.responses;
 
+import ant.battles.responses.messages.Surroundable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

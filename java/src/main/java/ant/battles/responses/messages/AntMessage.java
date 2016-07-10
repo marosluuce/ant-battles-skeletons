@@ -1,5 +1,6 @@
-package ant.battles.responses;
+package ant.battles.responses.messages;
 
+import ant.battles.responses.Location;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;

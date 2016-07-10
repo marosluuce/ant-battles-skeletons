@@ -1,5 +1,7 @@
-package ant.battles.responses;
+package ant.battles.responses.messages;
 
+import ant.battles.responses.Food;
+import ant.battles.responses.messages.AntMessage;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
