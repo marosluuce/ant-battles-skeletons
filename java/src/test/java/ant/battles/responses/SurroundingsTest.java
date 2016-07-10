@@ -6,6 +6,8 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static ant.battles.Direction.NORTH;
+import static ant.battles.Direction.NORTH_EAST;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SurroundingsTest {
@@ -17,8 +19,8 @@ public class SurroundingsTest {
         ObjectMapper mapper = new ObjectMapper();
         Surroundings surroundings = mapper.readValue(input, Surroundings.class);
 
-        List<Ant> northeastern = surroundings.northEast().ants();
-        List<Food> foods = surroundings.north().foods();
+        List<Ant> northeastern = surroundings.environment(NORTH_EAST).ants();
+        List<Food> foods = surroundings.environment(NORTH).foods();
 
         assertThat(northeastern.get(0).getId()).isEqualTo(2);
         assertThat(foods.get(0).quantity).isEqualTo(1);
