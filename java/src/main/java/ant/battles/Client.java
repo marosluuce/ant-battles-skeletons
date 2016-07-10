@@ -4,7 +4,6 @@ import ant.battles.responses.Ant;
 import ant.battles.responses.Nest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.Optional;
 
@@ -13,54 +12,43 @@ public class Client {
     private final ObjectMapper mapper = new ObjectMapper();
 
     public Optional<String> root() {
-        try {
-            return Optional.of(Unirest.get(url).asString().getBody());
-        } catch (UnirestException e) {
-            return Optional.empty();
-        }
+        return getString(url);
     }
 
     public Optional<Nest> join(String name) {
-        try {
-            String raw = Unirest.get(url + "/join/"+name).asString().getBody();
-            return Optional.of(mapper.readValue(raw, Nest.class));
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+        return get(this.url + "/join/" + name, Nest.class);
     }
 
     public Optional<Ant> spawnAntFor(Nest nest) {
-        try {
-            String raw = Unirest.get(url + "/"+nest.getId() + "/spawn").asString().getBody();
-            Ant ant = mapper.readValue(raw, Ant.class);
-            return Optional.of(ant);
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+        return get(this.url + "/" + nest.getId() + "/spawn", Ant.class);
     }
 
     public Optional<Ant> move(Ant ant, Direction north) {
-        try {
-            String raw = Unirest.get(url + "/" +ant.getId()+"/move/"+north.code()).asString().getBody();
-            return Optional.of(mapper.readValue(raw, Ant.class));
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+        return get(this.url + "/" + ant.getId() + "/move/" + north.code(), Ant.class);
     }
 
+
     public Optional<Ant> look(Ant ant) {
-        try {
-            String raw = Unirest.get(url + "/" +ant.getId()+"/look").asString().getBody();
-            return Optional.of(mapper.readValue(raw, Ant.class));
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+        return get(url + "/" +ant.getId()+"/look", Ant.class);
     }
 
     public Optional<String> leave(Nest nest) {
+        return getString(this.url + "/" + nest.getId() + "/leave");
+    }
+
+    private Optional<String> getString(String url) {
         try {
-            String raw = Unirest.get(url + "/" +nest.getId()+"/leave").asString().getBody();
+            String raw = Unirest.get(url).asString().getBody();
             return Optional.of(raw);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    private <T> Optional<T> get(String url, Class<T> valueType) {
+        try {
+            String raw = Unirest.get(url).asString().getBody();
+            return Optional.of(mapper.readValue(raw, valueType));
         } catch (Exception e) {
             return Optional.empty();
         }
