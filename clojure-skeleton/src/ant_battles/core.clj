@@ -1,10 +1,10 @@
 (ns ant-battles.core
-  (:require [ant-battles.symbolizer :as sym]
+  (:require [ant-battles.keywordizer :as kw]
             [clj-http.client :as client]
             [clj-json [core :as json]]))
 
 (defn- from-json [data]
-  (sym/symbolize (json/parse-string data)))
+  (kw/keywordize (json/parse-string data)))
 
 (defn- read-json [url]
   (from-json
